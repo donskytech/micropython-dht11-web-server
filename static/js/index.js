@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // function body
+    // Temperature Gauge Configurations
     var temperatureData = [{
         domain: {
             x: [0, 1],
@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }];
 
+    // Humidity Gauge Configurations
     var humidityData = [{
         domain: {
             x: [0, 1],
@@ -75,7 +76,8 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
     }];
-
+    
+    // Layout object that set's the size of our Gauge
     var layout = {
         width: 600,
         height: 450,
@@ -84,20 +86,14 @@ document.addEventListener("DOMContentLoaded", function() {
             b: 0
         }
     };
+    
+    // Create our two Gauge passing in the different configurations
     Plotly.newPlot('temperatureDiv', temperatureData, layout);
-
-    var layout = {
-        width: 600,
-        height: 450,
-        margin: {
-            t: 0,
-            b: 0
-        }
-    };
     Plotly.newPlot('humidityDiv', humidityData, layout);
 
 });
 
+// Callback function that will retrieve our latest sensor readings and redraw our Gauge with the latest readings
 function updatePlot() {
     console.log("Updating chart");
     fetch(`/updateValues`)
@@ -117,6 +113,7 @@ function updatePlot() {
         })
 }
 
+// Continuos loop that runs evry 3 seconds to update our web page with the latest sensor readings
 (function loop() {
     setTimeout(() => {
         updatePlot()
