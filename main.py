@@ -16,7 +16,7 @@ async def index(request):
 
 
 @app.route('/updateValues')
-async def toggle_led(request):
+async def get_dht_reads(request):
     print("Receive get values request!")
     sensor_reads = dht_sensor.get_values()
     return ujson.dumps(sensor_reads)
